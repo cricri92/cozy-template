@@ -9,7 +9,6 @@
                         <li class="divider"></li>
                         <li>Location: Armenia, Quindío, Colombia</li>
                     </ul>
-
                     <!--<ul id="top-buttons">
                         <li>
                             <div class="language-switcher">
