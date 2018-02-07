@@ -14,13 +14,13 @@
                 <i class="fa fa-home"></i>
                 @if($prop['for_sale'])
                     Venta
-                    <span>{{ $prop['sale_price'].' '.$prop['iso_currency'] }}</span>
+                    <span>{{ number_format($prop['sale_price'], 2).' '.$prop['iso_currency'] }}</span>
                 @elseif($prop['for_rent'])
                     Alquiler
-                    <span>{{ $prop['rent_price'].' '.$prop['iso_currency'] }}</span>
+                    <span>{{ number_format($prop['rent_price'], 2).' '.$prop['iso_currency'] }}</span>
                 @else
                     Transferencia
-                    <span>{{ $prop['sale_price'].' '.$prop['iso_currency'] }}</span>
+                    <span>{{ number_format($prop['sale_price'], 2).' '.$prop['iso_currency'] }}</span>
                 @endif
             </div>
             <div class="info">

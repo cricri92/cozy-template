@@ -4,10 +4,10 @@
             <div class="row">
                 <div class="col-sm-12">
                     <ul id="top-info">
-                        <li>Phone: 800-123-4567</li>
-                        <li>Email: <a href="mailto:hello@yourcompany.com">hello@yourcompany.com</a></li>
+                        <li>Teléfono: {{ $contactInfo['phone'] }}</li>
+                        <li>Email: <a href="mailto:{{ $contactInfo['email'] }}">{{ $contactInfo['email'] }}</a></li>
                         <li class="divider"></li>
-                        <li>Location: Armenia, Quindío, Colombia</li>
+                        <li>Dirección: {{ $contactInfo['address'] }}</li>
                     </ul>
                     <!--<ul id="top-buttons">
                         <li>

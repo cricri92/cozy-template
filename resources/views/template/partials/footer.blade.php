@@ -4,46 +4,27 @@
             <div class="block col-sm-3">
                 <a href="index.html"><img src="images/logo.png" alt="Cozy Logo" /></a>
                 <br><br>
-                <p>Cozy is a simple clean and modern HTML template designed for Real Estate business. This template has a lot of useful features and it's highly customizable so you can turn it into your own awesome website.</p>
+                <p>Cozy es la mejor agencia inmobiliaria.</p>
             </div>
             <div class="block col-sm-3">
-                <h3>Contact Info</h3>
+                <h3>Contacto</h3>
                 <ul class="footer-contacts">
-                    <li><i class="fa fa-map-marker"></i> 24th Street, New York, USA</li>
-                    <li><i class="fa fa-phone"></i> 00351 123 456 789</li>
-                    <li><i class="fa fa-envelope"></i> <a href="mailto:email@yourbusiness.com">email@yourbusiness.com</a></li>
+                    <li><i class="fa fa-map-marker"></i> {{ $contactInfo['address'] }}</li>
+                    <li><i class="fa fa-phone"></i> {{ $contactInfo['phone'] }}</li>
+                    <li><i class="fa fa-envelope"></i> <a href="mailto:{{ $contactInfo['email'] }}">{{ $contactInfo['email'] }}</a></li>
                 </ul>
             </div>
-            <div class="block col-sm-3">
-                <h3>Helpful Links</h3>
-                <ul class="footer-links">
-                    <li><a href="properties-list.html">All Properties Available</a></li>
-                    <li><a href="agent-listing.html">Look for an Agent</a></li>
-                    <li><a href="agency-listing.html">Look for an Agency</a></li>
-                    <li><a href="pricing-tables.html">See our Pricing Tables</a></li>
-                </ul>
-            </div>
-            <div class="block col-sm-3">
-                <h3>Latest Listings</h3>
+            <div class="block col-sm-6">
+                <h3>Últimas propiedades</h3>
                 <ul class="footer-listings">
-                    <li>
-                        <div class="image">
-                            <a href="properties-detail.html"><img src="http://placehold.it/760x670" alt="" /></a>
-                        </div>
-                        <p><a href="properties-detail.html">Luxury Apartment with great views<span>+</span></a></p>
-                    </li>
-                    <li>
-                        <div class="image">
-                            <a href="properties-detail.html"><img src="http://placehold.it/760x670" alt="" /></a>
-                        </div>
-                        <p><a href="properties-detail.html">Stunning Villa with 5 bedrooms<span>+</span></a></p>
-                    </li>
-                    <li>
-                        <div class="image">
-                            <a href="properties-detail.html"><img src="http://placehold.it/760x670" alt="" /></a>
-                        </div>
-                        <p><a href="properties-detail.html">Recent construction with 3 bedrooms.<span>+</span></a></p>
-                    </li>
+                    @for($i = 0; $i < sizeof($latestThreeProperties) - 2; $i++)
+                        <li>
+                            <div class="image">
+                                <a href="properties-detail.html"><img src="{{ $latestThreeProperties[$i]['galleries'][0][0]['url'] }}" alt="" /></a>
+                            </div>
+                            <p><a href="properties-detail.html">{{ $latestThreeProperties[$i]['title'] }}<span>+</span></a></p>
+                        </li>
+                    @endfor
                 </ul>
             </div>
         </div>
