@@ -12,3 +12,6 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('propiedades', ['as' => 'lista-propiedades', 'uses' => 'PropertiesController@index']);
+Route::get('propiedad/{prop_id}', ['as' => 'detalle-propiedad', 'uses' => 'PropertiesController@index']);
+

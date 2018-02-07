@@ -54,7 +54,7 @@
                                 <ul class="dropdown-menu">
                                     @for($i = 0; $i < (sizeof($typesForSale) - 1); $i++)
                                         <li>
-                                            <a href="properties-detail.html">
+                                            <a href="{{ route('lista-propiedades') }}">
                                                 {{ $typesForSale[$i]['nombre'] }}
                                             </a>
                                         </li>

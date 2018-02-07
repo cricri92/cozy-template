@@ -41,7 +41,9 @@
         <div class="wrapper">
             @include('template.partials.header')
 
-            @yield('content')
+            <div class="content">
+                @yield('content')
+            </div>
 
             @include('template.partials.footer')
         </div>
