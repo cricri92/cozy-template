@@ -3,9 +3,9 @@
 <div class="property-topinfo">
 <ul class="amenities">
     <li><i class="icon-apartment"></i> {{ $property['property_type_label'] }}</li>
-    <li><i class="icon-area"></i> {{ $property['area'] ]} {{ $property['unit_area_label'] }}</li>
-    <li><i class="icon-bedrooms"></i> {{ $property['bedrooms'] }}</li>
-    <li><i class="icon-bathrooms"></i> {{ $property['bathrooms'] }}</li>
+    <li><i class="icon-area"></i> {{ $property['area'] && $property['area'] != 0 ? $property['area'] : 'N/A' }} {{ $property['unit_area_label'] }}</li>
+    <li><i class="icon-bedrooms"></i> {{ $property['bedrooms'] ? $property['bedrooms'] : 'N/A' }}</li>
+    <li><i class="icon-bathrooms"></i> {{ $property['bathrooms'] ? $property['bathrooms'] : 'N/A' }}</li>
 </ul>
 
 <div id="property-id">ID: #{{ $property['id_property'] }}</div>
@@ -29,66 +29,25 @@
 
     <!-- BEGIN PROPERTY DETAIL LARGE IMAGE SLIDER -->
     <div id="property-detail-large" class="owl-carousel">
-        <div class="item">
-            <img src="http://placehold.it/764x423" alt="" />
-        </div>
-
-        <div class="item">
-            <img src="http://placehold.it/764x423" alt="" />
-        </div>
-
-        <div class="item">
-            <img src="http://placehold.it/764x423" alt="" />
-        </div>
-
-        <div class="item">
-            <img src="http://placehold.it/764x423" alt="" />
-        </div>
-
-        <div class="item">
-            <img src="http://placehold.it/764x423" alt="" />
-        </div>
-
-        <div class="item">
-            <img src="http://placehold.it/764x423" alt="" />
-        </div>
-
-        <div class="item">
-            <img src="http://placehold.it/764x423" alt="" />
-        </div>
-
-        <div class="item">
-            <img src="http://placehold.it/764x423" alt="" />
-        </div>
-
-        <div class="item">
-            <img src="http://placehold.it/764x423" alt="" />
-        </div>
-
-        <div class="item">
-            <img src="http://placehold.it/764x423" alt="" />
-        </div>
-
-        <div class="item">
-            <img src="http://placehold.it/764x423" alt="" />
-        </div>
+        @foreach ($property['galleries'][0] as $photo)
+            @if(!$loop->first)
+                <div class="item">
+                    <img src="{{ $photo['url_big'] }}" alt="" />
+                </div>
+            @endif
+        @endforeach
     </div>
     <!-- END PROPERTY DETAIL LARGE IMAGE SLIDER -->
 
     <!-- BEGIN PROPERTY DETAIL THUMBNAILS SLIDER -->
     <div id="property-detail-thumbs" class="owl-carousel">
-        <div class="item"><img src="http://placehold.it/148x131" alt="" /></div>
-        <div class="item"><img src="http://placehold.it/148x131" alt="" /></div>
-        <div class="item"><img src="http://placehold.it/148x131" alt="" /></div>
-        <div class="item"><img src="http://placehold.it/148x131" alt="" /></div>
-        <div class="item"><img src="http://placehold.it/148x131" alt="" /></div>
-        <div class="item"><img src="http://placehold.it/148x131" alt="" /></div>
-        <div class="item"><img src="http://placehold.it/148x131" alt="" /></div>
-        <div class="item"><img src="http://placehold.it/148x131" alt="" /></div>
-        <div class="item"><img src="http://placehold.it/148x131" alt="" /></div>
-        <div class="item"><img src="http://placehold.it/148x131" alt="" /></div>
-        <div class="item"><img src="http://placehold.it/148x131" alt="" /></div>
+        @foreach ($property['galleries'][0] as $photo)
+            @if(!$loop->first)
+                <div class="item">
+                    <img src="{{ $photo['url'] }}" alt="" />
+                </div>
+            @endif
+        @endforeach
     </div>
     <!-- END PROPERTY DETAIL THUMBNAILS SLIDER -->
-
 </div>

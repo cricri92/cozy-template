@@ -177,10 +177,10 @@ class PropertiesController extends Controller
         $client = new ClientHttp('');
         $property = $client->get('property/get/'.$idProperty);
         $property['property_type_label'] = $this->getPropertyTypeLabel($property['id_property_type']);
-        $property['unit_area_label'] = self::getUnitAreaLabel($data[$i]['id_unit_area']);
-        $property['unit_built_area_label'] = self::getUnitAreaLabel($data[$i]['id_unit_built_area']);
+        $property['unit_area_label'] = self::getUnitAreaLabel($property['id_unit_area']);
+        $property['unit_built_area_label'] = self::getUnitAreaLabel($property['id_unit_built_area']);
 
-        dd($property);
+        //dd($property);
 
         return view('properties.property-detail.property-detail-content',
             array(
