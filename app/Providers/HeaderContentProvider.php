@@ -17,8 +17,8 @@ class HeaderContentProvider extends ServiceProvider
     {
         // Header pre-load
         view()->composer('template.partials.header', function($view) {
-            $view->with('typesForSale', TemplateController::getPropertyTypesForSale());
-            $view->with('typesForRent', TemplateController::getPropertyTypesForRent());
+            $view->with('typesForSale', PropertiesController::getPropertyTypesByPurpose('for_sale'));
+            $view->with('typesForRent', PropertiesController::getPropertyTypesByPurpose('for_rent'));
             $view->with('contactInfo', TemplateController::getContactInfo());
         });
     }

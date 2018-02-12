@@ -5,7 +5,7 @@
     @foreach($firstFiveProperties as $prop)
         <div class="item">
             <div class="image">
-                <a href="properties-detail.html">
+                <a href="{{ route('property-detail', $prop['id_property']) }}">
                     <img src="{{ $prop['galleries'][0][0]['url'] }}"
                          alt="{{ $prop['galleries'][0][0]['description'] }}" />
                 </a>
@@ -23,22 +23,22 @@
                     <span>{{ number_format($prop['sale_price'], 2).' '.$prop['iso_currency'] }}</span>
                 @endif
             </div>
-            <div class="info">
+            <div class="info" class="col-md-12">
                 <div class="item-title col-md-8">
-                    <h3><a href="properties-detail.html">{{ $prop['title'] }}</a></h3>
-                    <span class="location">{{ $prop['address'] }}</span>
+                    <h3><a href="{{ route('property-detail', $prop['id_property']) }}">{{ $prop['title'] }}</a></h3>
+                    <span class="location">{{ $prop['city_label'] }}, {{ $prop['region_label'] }}, {{ $prop['country_label'] }}</span>
                 </div>
                 <ul class="amenities col-md-4">
-                    <li><i class="icon-area"></i>{{ $prop['built_area'].' '.$prop['unit_area_label'] }}</li>
-                    <li><i class="icon-bedrooms"></i> {{ $prop['bedrooms'] }}</li>
-                    <li><i class="icon-bathrooms"></i> {{ $prop['bathrooms'] }}</li>
+                    <li><i class="icon-area"></i>{{ $prop['area'] && $prop['area'] != 0 ? $prop['area'] : 'N/A'.' '.$prop['unit_area_label'] }}</li>
+                    <li><i class="icon-bedrooms"></i> {{ $prop['bedrooms'] ? $prop['bedrooms'] : 'N/A' }}</li>
+                    <li><i class="icon-bathrooms"></i> {{ $prop['bathrooms'] ? $prop['bathrooms'] : 'N/A' }}</li>
                 </ul>
-                <div class="description">
+                <div class="description row col-md-12">
                     <div class="col-md-12">
-                        {!! $prop['observations'] !!}
+                        {!! $prop['observations'] ? $prop['observations'] : '<p>No disponible</p>' !!}
                     </div>
                     <div class="col-md-3 col-md-push-10" style="position:relative">
-                        <a href="properties-detail.html" class="btn btn-default-color">Ver más</a>
+                        <a href="{{ route('property-detail', $prop['id_property']) }}" class="btn btn-default-color">Ver más</a>
                     </div>
                 </div>
             </div>

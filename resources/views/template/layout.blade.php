@@ -5,6 +5,7 @@
     <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Page Title -->
         <title>Cozy</title>
@@ -28,13 +29,20 @@
         <link href="http://fonts.googleapis.com/css?family=Raleway:300,500,900%7COpen+Sans:400,700,400italic" rel="stylesheet" type="text/css" />
 
         <!-- Bootstrap CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
 
         <!-- Template CSS -->
-        <link href="css/style.css" rel="stylesheet" />
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 
         <!-- Modernizr -->
-        <script src="js/modernizr-2.8.1.min.js"></script>
+        <script src="{{ asset('js/modernizr-2.8.1.min.js') }}"></script>
+
+         <script>
+            // rename myToken as you like
+            window.myToken =  <?php echo json_encode([
+                'csrfToken' => csrf_token(),
+            ]); ?>
+        </script>
 
     </head>
     <body>
@@ -48,5 +56,6 @@
             @include('template.partials.footer')
         </div>
         @include('template.scripts')
+        @stack('scripts')
     </body>
 </html>

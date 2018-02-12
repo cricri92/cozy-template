@@ -7,9 +7,9 @@
     </div>--}}
     @foreach($nextSixProperties as $prop)
         <div class="item" data-animation-direction="from-bottom" data-animation-delay="{{ 350 + ($loop->index+1) * 100 }}">
-            <a href="" data-gal="prettyPhoto[gallery]">
+            <a href="{{ route('property-detail', $prop['id_property']) }}" data-gal="prettyPhoto[gallery]">
                 <h3>{{ $prop['title'] }}</h3>
-                <span class="location">{{ $prop['address'] }}</span>
+                <span class="location">{{ $prop['city_label'] }}, {{ $prop['region_label'] }}, {{ $prop['country_label'] }}</span>
             </a>
             <img src="{{ $prop['galleries'][0][0]['url'] }}"
                  alt="{{ $prop['galleries'][0][0]['description'] }}" />

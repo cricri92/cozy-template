@@ -2,28 +2,192 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Providers\HttpRequestsProvider as ClientHttp;
+use Illuminate\Http\Request;
 
 class PropertiesController extends Controller
 {
-    public function index() {
-        $properties = self::getLatestProperties(10);
+    public function getProperties(Request $request) {
+        $regQty = 5;
+        $page = $request->get('page', 1);
+        $criteria = self::getSearchCriteriaProperties($request);
 
-        return view('properties.properties',
-            array('properties' => $properties)
+        $properties = self::getLatestProperties($regQty, $page, $criteria);
+        
+        $count = $properties['total_prop'];
+        $totalPages = self::getQtyOfPages($count, $regQty);
+
+        return view('properties.properties-content',
+            array(
+                'properties' => $properties['properties'],
+                'totalProperties' => $count,
+                'totalPages' => $totalPages,
+                'currentPage' => $page
+            )
         );
     }
 
-    public static function getLatestProperties($qty=5) {
+    static function getQtyOfPages($count, $regQty=5) {
+        return $count % $regQty == 0 ? $count / $regQty : floor($count / $regQty) + 1;
+    }
+
+    public static function getLatestProperties($qty=5, $page=1, $criteria=null) {
         $client = new ClientHttp('');
-        $data = $client->get('property/search', array(
+
+        $searchArray = array(
             'id_availability' => 1,
             'take' => $qty,
-            'Scope' => 1,
-            'order_by' =>'id_status_on_page'
-        ));
+            'scope' => 1,
+            'skip' => ($page - 1) * $qty
+        );    
+
+        if ($criteria != null) {
+            $searchArray = array_merge($searchArray, $criteria);
+        }
+        
+        $data = $client->get('property/search', $searchArray);
+        $properties = [];
+        for($i = 0; $i < sizeof($data) - 2; $i++) {
+            if (gettype($data[$i]) == 'array'){
+
+                $data[$i]['unit_area_label'] = self::getUnitAreaLabel($data[$i]['id_unit_area']);
+                $data[$i]['unit_built_area_label'] = self::getUnitAreaLabel($data[$i]['id_unit_built_area']);
+
+                $properties[$i] = $data[$i];
+            }
+        }
+
+        return array('properties' => $properties, 'total_prop' => $data['total']);
+    }
+
+    static function getUnitAreaLabel($label) {
+        $unit = '';
+
+        switch($label) {
+            case '1':
+                $unit = 'm2';
+                break;
+            case '2':
+                $unit = 'cuadras';
+                break;
+            case '3':
+                $unit = 'hectáreas';
+                break;
+            case '4':
+                $unit = 'varas';
+                break;
+        }
+
+        return $unit;
+    }
+
+    public static function getPropertyTypesByPurpose($purpose) {
+        $client = new ClientHttp('');
+        $data = $client->get('property-type/all', array(
+                'quantity' => true,
+                'scope' => 1,
+                $purpose => true
+            )
+        );
+
+        $ptypes = [];
+        for($i = 0; $i < sizeof($data) - 1; $i++) {
+            if(gettype($data[$i]) == 'array') {
+                $ptypes[$i] = $data[$i];
+            }
+        }
+
+        return $ptypes;
+    }
+
+    public static function getPropertiesPurpose() {
+        $ppurpose = [
+            'Venta',
+            'Alquiler',
+            'Transferencia'
+        ];
+
+        return $ppurpose;
+    }
+
+    public static function getAllPropertyTypes() {
+        $client = new ClientHttp('');
+        $data = $client->get('property-type/all', array(
+                'quantity' => true,
+                'scope' => 1
+            )
+        );
+
+        $pptypes = [];
+        for($i = 0; $i < sizeof($data) - 1; $i++) {
+            if (gettype($data[$i]) == 'array') {
+                $pptypes[$i] = $data[$i];
+            }
+        }
+
+        return $pptypes;
+    }
+
+    public static function getPriceRange() {
+        $client = new ClientHttp('');
+        $data = $client->get('property/price-range');
 
         return $data;
     }
+
+    public static function getAreaRange() {
+        $client = new ClientHttp('');
+        $data = $client->get('property/area-range');
+
+        return $data;
+    }
+
+    public static function getSearchCriteriaProperties(Request $request) {    
+        $searchArray = array(
+            'match' => $request->input('location', ''),
+            'id_property_type' => $request->input('search_prop_type', 0),
+            'for_sale' => $request->input('search_status') == 'Venta',
+            'for_rent' => $request->input('search_status') == 'Alquiler',
+            'bathrooms' => $request->input('search_bathrooms', 0),
+            'min_bedrooms' => $request->input('search_bedrooms', 0),
+            'min_built_area' => $request->input('search_minarea', 0),
+            'min_area' => $request->input('search_minarea', 0),
+            'max_built_area' => $request->input('search_maxarea', 0),
+            'max_area' => $request->input('search_maxarea', 0),
+            'min_price' => $request->input('search_minprice', 0),            
+            'max_price' => $request->input('search_maxprice', 0)
+        );          
+
+       return $searchArray;
+    }
+
+    public function searchProperties(Request $request) {
+        return $this->getProperties($request);
+    }
+
+    public function getPropertyTypeLabel($idPropertyType) {
+        $data = self::getAllPropertyTypes();
+
+        return array_filter($data, function($val) use ($idPropertyType) {
+            return $val['id_property_type'] == $idPropertyType;
+        })[0]['nombre'];
+    }
+
+    public function getProperty($idProperty) {
+        $client = new ClientHttp('');
+        $property = $client->get('property/get/'.$idProperty);
+        $property['property_type_label'] = $this->getPropertyTypeLabel($property['id_property_type']);
+        $property['unit_area_label'] = self::getUnitAreaLabel($data[$i]['id_unit_area']);
+        $property['unit_built_area_label'] = self::getUnitAreaLabel($data[$i]['id_unit_built_area']);
+
+        dd($property);
+
+        return view('properties.property-detail.property-detail-content',
+            array(
+                'property' => $property
+            )
+        );
+    }
+
+
 }

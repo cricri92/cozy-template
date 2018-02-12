@@ -31,12 +31,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Cozy Logo" /></a>
+                    <a href="{{ route('home') }}" class="nav-logo"><img src="{{ asset('images/logo.png') }}" alt="Cozy Logo" /></a>
 
                     <!-- BEGIN SEARCH -->
                     <div id="sb-search" class="sb-search">
                         <form>
-                            <input class="sb-search-input" placeholder="Search..." type="text" value="" name="search" id="search">
+                            <input class="sb-search-input" placeholder="Buscar..." type="text" value="" name="search" id="search">
                             <input class="sb-search-submit" type="submit" value="">
                             <i class="fa fa-search sb-icon-search"></i>
                         </form>
@@ -48,30 +48,38 @@
                         <button id="nav-mobile-btn"><i class="fa fa-bars"></i></button>
 
                         <ul class="nav navbar-nav">
-                            <li><a class="active" href="index.html">Inicio</a></li>
+                            <li><a class="active" href="{{ route('home') }}">Inicio</a></li>
                             <li class="dropdown">
                                 <a href="#" data-toggle="dropdown" data-hover="dropdown">Ventas<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    @for($i = 0; $i < (sizeof($typesForSale) - 1); $i++)
+                                    @for($i = 0; $i < 4; $i++)
                                         <li>
-                                            <a href="{{ route('lista-propiedades') }}">
+                                            <a href="{{ route('properties-list', array('id_property_type' => $typesForSale[$i]['id_property_type'], 'for_sale' => true)) }}">
                                                 {{ $typesForSale[$i]['nombre'] }}
                                             </a>
                                         </li>
                                     @endfor
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="{{ route('properties-list') }}">Ver más</a>
+                                    </li>
                                 </ul>
                             </li>
 
                             <li class="dropdown">
                                 <a href="#" data-toggle="dropdown" data-hover="dropdown">Alquiler<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    @for($i = 0; $i < (sizeof($typesForSale) - 1); $i++)
+                                    @for($i = 0; $i < 4; $i++)
                                         <li>
-                                            <a href="properties-detail.html">
+                                            <a href="{{ route('properties-list', array('id_property_type' => $typesForRent[$i]['id_property_type'], 'for_rent' => true)) }}">
                                                 {{ $typesForRent[$i]['nombre'] }}
                                             </a>
                                         </li>
                                     @endfor
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="{{ route('properties-list') }}">Ver más</a>
+                                    </li>
                                 </ul>
                             </li>
 

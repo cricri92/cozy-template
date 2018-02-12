@@ -18,7 +18,7 @@ class FooterContentProvider extends ServiceProvider
         // Footer pre-load
         view()->composer('template.partials.footer', function($view){
             $view->with('contactInfo', TemplateController::getContactInfo());
-            $view->with('latestThreeProperties', PropertiesController::getLatestProperties(3));
+            $view->with('latestThreeProperties', PropertiesController::getLatestProperties(3)['properties']);
         });
     }
 

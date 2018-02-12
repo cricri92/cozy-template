@@ -11,7 +11,15 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-Route::get('propiedades', ['as' => 'lista-propiedades', 'uses' => 'PropertiesController@index']);
-Route::get('propiedad/{prop_id}', ['as' => 'detalle-propiedad', 'uses' => 'PropertiesController@index']);
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('propiedades', 
+            [
+                'as' => 'properties-list', 
+                'uses' => 'PropertiesController@getProperties'
+            ]);
 
+Route::get('propiedades/propiedad/{prop_id}', 
+            [
+                'as' => 'property-detail', 
+                'uses' => 'PropertiesController@getProperty'
+            ]);

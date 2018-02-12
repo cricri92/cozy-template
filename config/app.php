@@ -178,7 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\HttpRequestsProvider::class,
         App\Providers\HeaderContentProvider::class,
-        App\Providers\FooterContentProvider::class
+        App\Providers\FooterContentProvider::class,
+        App\Providers\SidebarContentProvider::class
     ],
 
     /*

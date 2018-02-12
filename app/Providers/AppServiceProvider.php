@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-       setlocale(LC_MONETARY, 'co_CO');
+        setlocale(LC_MONETARY, 'co_CO');
     }
 
     /**

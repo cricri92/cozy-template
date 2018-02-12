@@ -15,4 +15,20 @@
         </div>
     </div>
 </div>
-<!-- END CONTENT WRAPPER -->
+
+@push('scripts')
+    <!-- Properties list -->
+    <script src="js/properties.js"></script>
+
+
+    <script type="text/javascript">
+        (function($){
+            "use strict";
+
+            $(document).ready(function(){
+                //Create porperties map
+                Cozy.propertiesMap(properties, 'properties_map');
+            });
+        })(jQuery);
+    </script>
+@endpush

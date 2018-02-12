@@ -1,68 +1,62 @@
 <!-- BEGIN ADVANCED SEARCH -->
-<h2 class="section-title">Search Property</h2>
-<form>
+<h2 class="section-title">Búsqueda de Propiedades</h2>
+<form action="{{ route('properties-list') }}">
     <div class="form-group">
 
-        <div class="col-sm-12">
-            <select class="chosen-select" tabindex="-1" multiple="" data-placeholder="Searched Parameters">
-                <option value=""> </option>
-                <option selected value="New York">New York</option>
-                <option selected value="Residential">Residential</option>
-                <option selected value="Sale">Sale</option>
-                <option selected value="3 bedrooms">3 bedrooms</option>
-                <option selected value="2 bathrooms">2 bathrooms</option>
-                <option selected value="Min. 70.000$">Min. 70.000$</option>
-                <option selected value="Min. 120.000$">Min. 120.000$</option>
+        {{--<div class="col-sm-12">
+           <select class="chosen-select" tabindex="-1" multiple="" data-placeholder="Parámetros de búsqueda">
+               <option value=""> </option>
+              <option selected value="New York">New York</option>
+               <option selected value="Residential">Residential</option>
+               <option selected value="Sale">Sale</option>
+               <option selected value="3 bedrooms">3 bedrooms</option>
+               <option selected value="2 bathrooms">2 bathrooms</option>
+               <option selected value="Min. 70.000$">Min. 70.000$</option>
+               <option selected value="Min. 120.000$">Min. 120.000$</option>
             </select>
-        </div>
-
+        </div>--}}
         <div class="col-sm-12">
-            <input type="text" class="form-control" name="location" placeholder="City, State, Country, etc...">
-
-            <select class="col-sm-12" id="search_prop_type" name="search_prop_type" data-placeholder="Type of Property">
+            <select id="location" name="location" placeholder="Ciudad, Zona, País...">
                 <option value=""> </option>
-                <option value="residential">Residential</option>
-                <option value="commercial">Commercial</option>
-                <option value="land">Land</option>
+                {{--@foreach ($locations as $location)
+                    <option value="{{ $location[$loop->index] }}">{{ $location['name'] }}</option>
+                @endforeach--}}
+            </select>
+            <input type="text" class="form-control" id="location" name="location" placeholder="Ciudad, Departamento, País...">
+
+            <select class="col-sm-12" id="search_prop_type" name="search_prop_type" data-placeholder="Tipo de inmueble">
+                <option value=""> </option>
+                @foreach($propertyTypes as $types)
+                    <option value=""> </option>
+                    <option value="{{ $types['id_property_type'] }}">{{ $types['nombre'] }}</option>
+                @endforeach
             </select>
 
-            <select id="search_status" name="search_status" data-placeholder="Status">
+            <select id="search_status" name="search_status" data-placeholder="Estatus">
                 <option value=""> </option>
-                <option value="sale">For Sale</option>
-                <option value="rent">For Rent</option>
+                @foreach($propertyPurposes as $purpose)
+                    <option value="{{ $purpose }}">{{ $purpose }}</option>
+                @endforeach
             </select>
         </div>
 
         <div class="col-md-6">
-            <select id="search_minarea" name="search_minarea" data-placeholder="Min. Area">
-                <option value=""> </option>
-                <option value="50">50m2</option>
-                <option value="100">100m2</option>
-                <option value="150">150m2</option>
-                <option value="200">200m2</option>
-                <option value="300">300m2</option>
-                <option value="500">500m2</option>
-                <option value="700">700m2</option>
-                <option value="1000">1000m2</option>
+            <select id="search_minarea" name="search_minarea" data-placeholder="Área mín.">
+                <option value=""> </option>  
+                <option value="0">0</option>
             </select>
         </div>
 
         <div class="col-md-6">
-            <select id="search_maxarea" name="search_maxarea" data-placeholder="Max. Area">
-                <option value=""> </option>
-                <option value="50">50m2</option>
-                <option value="100">100m2</option>
-                <option value="150">150m2</option>
-                <option value="200">200m2</option>
-                <option value="300">300m2</option>
-                <option value="500">500m2</option>
-                <option value="700">700m2</option>
-                <option value="1000">1000m2</option>
+            <select id="search_maxarea" name="search_maxarea" data-placeholder="Área máx.">
+                <option value=""> </option> 
+                <option value="0">0</option>
+                <option value="{{ $areaRanges['max_area'] }}">{{ $areaRanges['max_area'] }}</option>
             </select>
         </div>
 
         <div class="col-sm-12">
-            <select id="search_bedrooms" name="search_bedrooms" data-placeholder="Bedrooms">
+            <select id="search_bedrooms" name="search_bedrooms" data-placeholder="Habitaciones">
                 <option value=""> </option>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -73,7 +67,7 @@
                 <option value="5plus">5+</option>
             </select>
 
-            <select id="search_bathrooms" name="search_bathrooms" data-placeholder="Bathrooms">
+            <select id="search_bathrooms" name="search_bathrooms" data-placeholder="Baños">
                 <option value=""> </option>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -85,42 +79,24 @@
         </div>
 
         <div class="col-md-6">
-            <select id="search_minprice" name="search_minprice" data-placeholder="Min. Price">
+            <select id="search_minprice" name="search_minprice" data-placeholder="Precio mín.">
                 <option value=""> </option>
-                <option value="0">$0</option>
-                <option value="25000">$25000</option>
-                <option value="50000">$50000</option>
-                <option value="75000">$75000</option>
-                <option value="100000">$100000</option>
-                <option value="150000">$150000</option>
-                <option value="200000">$200000</option>
-                <option value="300000">$300000</option>
-                <option value="500000">$500000</option>
-                <option value="750000">$750000</option>
-                <option value="1000000">$1000000</option>
+                <option value="{{ $priceRanges['min_sale_price'] }}">{{ number_format($priceRanges['min_sale_price']) }}</option>
+                <option value="{{ $priceRanges['min_rent_price'] }}">{{ number_format($priceRanges['min_rent_price']) }}</option>
             </select>
         </div>
 
         <div class="col-md-6">
-            <select id="search_maxprice" name="search_maxprice" data-placeholder="Max. Price">
+            <select id="search_maxprice" name="search_maxprice" data-placeholder="Precio máx.">
                 <option value=""> </option>
-                <option value="25000">$25000</option>
-                <option value="50000">$50000</option>
-                <option value="75000">$75000</option>
-                <option value="100000">$100000</option>
-                <option value="150000">$150000</option>
-                <option value="200000">$200000</option>
-                <option value="300000">$300000</option>
-                <option value="500000">$500000</option>
-                <option value="750000">$750000</option>
-                <option value="1000000">$1000000</option>
-                <option value="1000000plus">>$1000000</option>
+                <option value="{{ $priceRanges['max_rent_price'] }}">{{ number_format($priceRanges['max_rent_price']) }}</option>
+                <option value="{{ $priceRanges['max_sale_price'] }}">{{ number_format($priceRanges['max_sale_price']) }}</option>
             </select>
         </div>
 
         <p>&nbsp;</p>
         <p class="center">
-            <button type="submit" class="btn btn-default-color">Search</button>
+            <button class="btn btn-default-color" id="search_property_action">Buscar</button>
         </p>
     </div>
 </form>

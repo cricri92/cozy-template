@@ -2,7 +2,7 @@
     <div id="footer-top" class="container">
         <div class="row">
             <div class="block col-sm-3">
-                <a href="index.html"><img src="images/logo.png" alt="Cozy Logo" /></a>
+                <a href="index.html"><img src="{{ asset('images/logo.png') }}" alt="Cozy Logo" /></a>
                 <br><br>
                 <p>Cozy es la mejor agencia inmobiliaria.</p>
             </div>
@@ -17,14 +17,14 @@
             <div class="block col-sm-6">
                 <h3>Últimas propiedades</h3>
                 <ul class="footer-listings">
-                    @for($i = 0; $i < sizeof($latestThreeProperties) - 2; $i++)
+                    @foreach($latestThreeProperties as $property)
                         <li>
                             <div class="image">
-                                <a href="properties-detail.html"><img src="{{ $latestThreeProperties[$i]['galleries'][0][0]['url'] }}" alt="" /></a>
+                                <a href="properties-detail.html"><img src="{{ $property['galleries'][0][0]['url'] }}" alt="" /></a>
                             </div>
-                            <p><a href="properties-detail.html">{{ $latestThreeProperties[$i]['title'] }}<span>+</span></a></p>
+                            <p><a href="properties-detail.html">{{ $property['title'] }}<span>+</span></a></p>
                         </li>
-                    @endfor
+                    @endforeach
                 </ul>
             </div>
         </div>

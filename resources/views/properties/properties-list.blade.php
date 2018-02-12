@@ -1,70 +1,62 @@
 <div id="listing-header" class="clearfix">
     <div class="form-control-small">
-        <select id="sort_by" name="sort_by" data-placeholder="Sort">
+        <select id="sort_by" name="sort_by" data-placeholder="Ordenar">
             <option value=""> </option>
-            <option value="data">Sort by Date</option>
-            <option value="area">Sort by Area</option>
+            <option value="data">Ordenar por fecha</option>
+            <option value="area">Ordenar por área</option>
         </select>
     </div>
 
     <div class="sort">
         <ul>
-            <li class="active"><i data-toggle="tooltip" data-placement="top" title="Sort Descending" class="fa fa-chevron-down"></i></li>
-            <li><i data-toggle="tooltip" data-placement="top" title="Sort Ascending" class="fa fa-chevron-up"></i></li>
-        </ul>
-    </div>
-
-    <div class="view-mode">
-        <span>View Mode:</span>
-        <ul>
-            <li data-view="grid-style1" data-target="property-listing"><i class="fa fa-th"></i></li>
-            <li data-view="list-style" data-target="property-listing" class="active"><i class="fa fa-th-list"></i></li>
+            <li class="active"><i data-toggle="tooltip" data-placement="top" title="Orden descendente" class="fa fa-chevron-down"></i></li>
+            <li><i data-toggle="tooltip" data-placement="top" title="Orden ascendente" class="fa fa-chevron-up"></i></li>
         </ul>
     </div>
 </div>
 
 <!-- BEGIN PROPERTY LISTING -->
 <div id="property-listing" class="list-style clearfix">
-    @for($i = 0; $i < sizeof($properties) - 2; $i++)
-        <div class="row">
+    <div class="row">
+        @foreach($properties as $prop)
             <div class="item col-md-4"><!-- Set width to 4 columns for grid view mode only -->
                 <div class="image">
-                    <a href="properties-detail.html">
+                    <a href="{{ route('property-detail', $prop['id_property']) }}">
                         <span class="btn btn-default"><i class="fa fa-file-o"></i> Detalles</span>
                     </a>
-                    <img src="{{ $properties[$i]['galleries'][0][0]['url'] }}"
-                         alt="{{ $properties[$i]['galleries'][0][0]['description'] }}" />
+                    <img src="{{ $prop['galleries'][0][0]['url'] }}"
+                            alt="{{ $prop['galleries'][0][0]['description'] }}" />
                 </div>
                 <div class="price">
-                    @if($properties[$i]['for_sale'])
+                    @if($prop['for_sale'])
                         Venta
-                        <span>{{ number_format($properties[$i]['sale_price'], 2).' '.$properties[$i]['iso_currency'] }}</span>
-                    @elseif($properties[$i]['for_rent'])
+                        <span>{{ number_format($prop['sale_price'], 2).' '.$prop['iso_currency'] }}</span>
+                    @elseif($prop['for_rent'])
                         Alquiler
-                        <span>{{ number_format($properties[$i]['rent_price'], 2).' '.$properties[$i]['iso_currency'] }}</span>
+                        <span>{{ number_format($prop['rent_price'], 2).' '.$prop['iso_currency'] }}</span>
                     @else
                         Transferencia
-                        <span>{{ number_format($properties[$i]['sale_price'], 2).' '.$properties[$i]['iso_currency'] }}</span>
+                        <span>{{ number_format($prop['sale_price'], 2).' '.$prop['iso_currency'] }}</span>
                     @endif
                 </div>
                 <div class="info">
                     <h3>
-                        <a href="properties-detail.html">{{ $properties[$i]['title'] }}</a>
-                        <small>{{ $properties[$i]['address'] }}</small>
+                        <a href="properties-detail.html">{{ $prop['title'] }}</a>
+                        <small>{{ $prop['address'] }}</small>
                     </h3>
                     <div class="col-md-12">
-                        {!! $properties[$i]['observations'] !!}
+                        {!! $prop['observations'] !!}
                     </div>
 
                     <ul class="amenities col-md-4">
-                        <li><i class="icon-area"></i>{{ $properties[$i]['built_area'].' '.$properties[$i]['unit_area_label'] }}</li>
-                        <li><i class="icon-bedrooms"></i> {{ $properties[$i]['bedrooms'] }}</li>
-                        <li><i class="icon-bathrooms"></i> {{ $properties[$i]['bathrooms'] }}</li>
+                        <li><i class="icon-area"></i>{{ $prop['built_area'].' '.$prop['unit_area_label'] }}</li>
+                        <li><i class="icon-bedrooms"></i> {{ $prop['bedrooms'] }}</li>
+                        <li><i class="icon-bathrooms"></i> {{ $prop['bathrooms'] }}</li>
                     </ul>
                 </div>
             </div>
-        </div>
-    @endfor
+        @endforeach
+    </div>
 </div>
 <!-- END PROPERTY LISTING -->
 
@@ -72,16 +64,17 @@
 <!-- BEGIN PAGINATION -->
 <div class="pagination">
     <ul id="previous">
-        <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+        <li><a href="{{ route('properties-list', array('page' => $currentPage - 1)) }}" class="{{ $currentPage == 1 ? 'disable-link' : '' }}"><i class="fa fa-chevron-left"></i></a></li>
     </ul>
     <ul>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
+        @for($i = 1; $i <= $totalPages; $i++)
+            <li class="{{ $i == $currentPage ? 'active' : '' }}">
+                <a href="{{ route('properties-list', array('page' => $i)) }}">{{ $i }}</a>
+            </li>
+        @endfor
     </ul>
     <ul id="next">
-        <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+        <li><a href="{{ route('properties-list', array('page' => $currentPage + 1)) }}" class="{{ $currentPage == $totalPages ? 'disable-link' : '' }}"><i class="fa fa-chevron-right"></i></a></li>
     </ul>
 </div>
 <!-- END PAGINATION -->

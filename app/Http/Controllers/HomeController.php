@@ -8,14 +8,12 @@ use App\Providers\HttpRequestsProvider as ClientHttp;
 class HomeController extends Controller
 {
     function index() {
-        $properties = PropertiesController::getLatestProperties(11);
+        $properties = PropertiesController::getLatestProperties(11)['properties'];
 
         $firstFiveProperties = array_slice($properties, 1, 5);
-        $nextSixProperties = array_slice($properties, 6, 6);
+        $nextSixProperties = array_slice($properties, 5, 6);
         $clients = $this->getClients();
         $contactInfo = $this->getContactInfo();
-
-        //dd($realtor);
 
         return view('home.home', array(
             'firstFiveProperties' => $firstFiveProperties,
