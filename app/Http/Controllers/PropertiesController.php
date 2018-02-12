@@ -176,15 +176,23 @@ class PropertiesController extends Controller
     public function getProperty($idProperty) {
         $client = new ClientHttp('');
         $property = $client->get('property/get/'.$idProperty);
+
         $property['property_type_label'] = $this->getPropertyTypeLabel($property['id_property_type']);
         $property['unit_area_label'] = self::getUnitAreaLabel($property['id_unit_area']);
         $property['unit_built_area_label'] = self::getUnitAreaLabel($property['id_unit_built_area']);
-
-        //dd($property);
+        
+        $user = $client->get('user/get/'.$property['id_user']);
+        $similarProperties = self::getLatestProperties(6, 1, array(
+            'id_property_type' => $property['id_property_type'],
+            'id_region' => $property['id_region']
+        ))['properties'];
+        //dd($user);
 
         return view('properties.property-detail.property-detail-content',
             array(
-                'property' => $property
+                'property' => $property,
+                'realtor' => $user,
+                'similarProperties' => $similarProperties
             )
         );
     }

@@ -9,7 +9,7 @@
             <li><a href="index.html">Inicio</a></li>
             <li><a href="#">Propiedades</a></li>
             <li><a href="{{ route('properties-list') }}">Listado de Inmuebles</a></li>
-            <li><a href="{{ route('properties-list') }}">Detalle del Inmueble {{--aqui va el id :D--}}</a></li>
+            <li><a href="{{ route('property-detail', $property['id_property']) }}">Detalle del Inmueble {{ $property['id_property'] }}</a></li>
         </ul>
     @endcomponent
     <div class="content gray">
@@ -19,7 +19,7 @@
                 <div class="main col-sm-8">
                     @include('properties.property-detail.property-gallery')
                     @include('properties.property-detail.property-features')
-                    @include('properties.property-detail.property-location')
+                    {{-- @include('properties.property-detail.property-location') --}}
                     @include('properties.property-detail.agent-contact')
                     @include('properties.property-detail.similar-properties')
                 </div>
