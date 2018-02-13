@@ -33,6 +33,7 @@
 
         <!-- Template CSS -->
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 
         <!-- Modernizr -->
         <script src="{{ asset('js/modernizr-2.8.1.min.js') }}"></script>

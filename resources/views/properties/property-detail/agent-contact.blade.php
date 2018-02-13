@@ -1,4 +1,4 @@
-<h1 class="section-title">Información del Agente</h1>
+<h1 class="section-title">Contacta al Agente</h1>
 <!-- BEING AGENT INFORMATION -->
 <div class="property-agent-info">
     <div class="agent-detail col-md-4">
@@ -19,31 +19,46 @@
         </div>
     </div>
 
-    <form class="form-style col-md-8" action="" method="POST">  
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-        <div class="col-sm-6">
-            <input type="text" name="name" placeholder="Nombre" class="form-control required fromName" />
+    <form class="form-style col-md-8" id="contact_form">
+        {{ csrf_field() }}
+        <div class="col-sm-6 form-group">
+            <input type="text" id="name" name="name" placeholder="Nombre" class="form-control required fromName" />
+            <span class="error-message" id="name_error"> </span>
         </div>
 
-        <div class="col-sm-6">
-            <input type="text" name="name" placeholder="Apellido" class="form-control required fromName" />
+        <div class="col-sm-6 form-group">
+            <input type="text" id="lastName" name="lastName" placeholder="Apellido" class="form-control required fromName" />
+            <span class="error-message" id="lastname_error"> </span>
         </div>
 
-        <div class="col-sm-12">
-            <input type="email" name="email" placeholder="Email" class="form-control required fromEmail" />
+        <div class="col-sm-12 form-group">
+            <input type="email" id="email" name="email" placeholder="Email" class="form-control required fromEmail" />
+            <span class="error-message" id="email_error"> </span>
         </div>
 
-        <div class="col-sm-12">
-            <input type="text" name="subject" placeholder="Asunto" class="form-control required subject" />
-            <textarea name="Message" placeholder="Mensaje" class="form-control required"></textarea>
+        <div class="col-sm-12 form-group">
+            <input type="text" id="subject" name="subject" placeholder="Asunto" class="form-control required subject" />
+            <span class="error-message" id="subject_error"> </span>
         </div>
 
-        <div class="col-sm-12"> 
-            <input type="checkbox" name="receive_newsletter" placeholder="Deseo recibir noticias y actualizaciones sobre los inmuebles ofertados."/>
+        <div class="col-sm-12 form-group">
+            <textarea name="message" id="message" placeholder="Mensaje" class="form-control required"></textarea>
+            <span class="error-message" id="message_error"> </span>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8 col-sm-push-2 g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+        </div>
+
+        <div class="col-sm-12 form-group">
+            <input type="checkbox" id="receive_newsletter" name="receive_newsletter" placeholder="Deseo recibir noticias y actualizaciones sobre los inmuebles ofertados."/>
             Deseo recibir noticias y actualizaciones sobre los inmuebles ofertados.
         </div>
-    
-        <button class="btn btn-default-color submit_form"><i class="fa fa-envelope"></i> Enviar</button>
+
+        <hr class="col-sm-12">
+        <div class="col-sm-4 col-sm-push-4">
+            <button id="send_contact_request" type="button" class="btn btn-default-color submit_form"><i class="fa fa-envelope"></i> Enviar</button>
+        </div>
     </form>
 </div>
 <!-- END AGENT INFORMATION -->

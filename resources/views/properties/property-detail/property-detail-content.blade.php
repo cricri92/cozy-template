@@ -9,7 +9,7 @@
             <li><a href="index.html">Inicio</a></li>
             <li><a href="#">Propiedades</a></li>
             <li><a href="{{ route('properties-list') }}">Listado de Inmuebles</a></li>
-            <li><a href="{{ route('property-detail', $property['id_property']) }}">Detalle del Inmueble {{ $property['id_property'] }}</a></li>
+            <li><a href="{{ route('property-detail', $property['id_property']) }}">Detalle del Inmueble #{{ $property['id_property'] }}</a></li>
         </ul>
     @endcomponent
     <div class="content gray">
@@ -24,7 +24,7 @@
                     @include('properties.property-detail.similar-properties')
                 </div>
                 <!-- BEGIN SIDEBAR 1 -->
-                <div class="sidebar gray col-sm-4">
+                <div class="sidebar gray col-sm-4 col-sm-push-1">
                     @include('properties.properties-sidebar')
                 </div>
             </div>
@@ -32,4 +32,18 @@
     </div>
 @endsection
 <!-- END CONTENT WRAPPER -->
+@push('scripts')
+    <script>
+        const coordinates = { lat: @json($property).latitude, lng: @json($property).longitude };
+        const mapData = {
+            coordinates: coordinates,
+            location: `{{ $property['city_label'] }}, {{ $property['region_label'] }}, {{ $property['country_label'] }}`,
+            picture: "{{ $property['galleries'][0][0]['url'] }}",
+            {{--propertyType: "{{ $property['property_type_label'] }}"--}}
+        }
+        const realtor = @json($realtor);
+    </script>
+    <script src="{{ asset('js/properties/propertyMap.js') }}"></script>
+    <script src="{{ asset('js/properties/propertyContactForm.js') }}"></script>
+@endpush
 

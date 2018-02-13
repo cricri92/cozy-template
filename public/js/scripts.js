@@ -80,7 +80,7 @@ var Cozy;
                 /**
                  * Create custom check boxes
                  */
-                $tis.createCheckBoxes();
+                // $tis.createCheckBoxes();
 
                 /**
                  * Build properties grid
@@ -142,7 +142,7 @@ var Cozy;
                 /**
                  * Contact form submit
                  */
-                $tis.contactForm();
+                //$tis.contactForm();
 
                 /**
                  * View Mode Switcher
@@ -477,7 +477,7 @@ var Cozy;
                 }
             },
 
-            createCheckBoxes: function () {
+            /*createCheckBoxes: function () {
 
                 if ($('input[type="checkbox"]').length) {
                     $('input[type="checkbox"]').checkbox({
@@ -485,7 +485,7 @@ var Cozy;
                         uncheckedClass: 'fa fa-square-o'
                     });
                 }
-            },
+            },*/
 
             propertiesGrid: function () {
 
@@ -1117,7 +1117,7 @@ var Cozy;
 
                 checkViewPort();
             },
-
+            /*
             contactForm: function () {
 
                 var $tis = this;
@@ -1302,7 +1302,7 @@ var Cozy;
 
                     return false;
                 });
-            },
+            },*/
 
             viewModeSwitcher: function () {
 

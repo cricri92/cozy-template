@@ -16,14 +16,8 @@
             </select>
         </div>--}}
         <div class="col-sm-12">
-            <select id="location" name="location" placeholder="Ciudad, Zona, País...">
-                <option value=""> </option>
-                {{--@foreach ($locations as $location)
-                    <option value="{{ $location[$loop->index] }}">{{ $location['name'] }}</option>
-                @endforeach--}}
-            </select>
             <input type="text" class="form-control" id="location" name="location" placeholder="Ciudad, Departamento, País...">
-
+        
             <select class="col-sm-12" id="search_prop_type" name="search_prop_type" data-placeholder="Tipo de inmueble">
                 <option value=""> </option>
                 @foreach($propertyTypes as $types)

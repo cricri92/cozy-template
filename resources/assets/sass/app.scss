@@ -1,9 +1,12 @@
-
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
 // Variables
 @import "variables";
 
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+.error-message {
+    color: #F23030;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.form-control {
+	margin-bottom: 0 !important;
+}
