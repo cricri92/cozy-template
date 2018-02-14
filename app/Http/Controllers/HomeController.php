@@ -2,50 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Providers\HttpRequestsProvider as ClientHttp;
 
-class HomeController extends Controller
-{
-    function index() {
-        $properties = PropertiesController::getLatestProperties(11)['properties'];
+class HomeController extends Controller {
+	function index() {
+		$properties = PropertiesController::getLatestProperties(11)['properties'];
 
-        $firstFiveProperties = array_slice($properties, 1, 5);
-        $nextSixProperties = array_slice($properties, 5, 6);
-        $clients = $this->getClients();
-        $contactInfo = $this->getContactInfo();
+		$firstFiveProperties = array_slice($properties, 1, 5);
+		$nextSixProperties   = array_slice($properties, 5, 6);
+		$clients             = $this->getClients();
+		$contactInfo         = $this->getContactInfo();
 
-        return view('home.home', array(
-            'firstFiveProperties' => $firstFiveProperties,
-            'nextSixProperties' => $nextSixProperties,
-            'clients' => $clients,
-            'contactInfo' => $contactInfo
-        ));
-    }
+		$mapProperties = PropertiesController::formatForMap($properties);
 
-    function getClients() {
-        $client = new ClientHttp('');
-        $data = $client->get('user/all-users');
+		return view('home.home', array(
+				'firstFiveProperties' => $firstFiveProperties,
+				'nextSixProperties'   => $nextSixProperties,
+				'clients'             => $clients,
+				'contactInfo'         => $contactInfo,
+				'mapProperties'       => $mapProperties,
+				'propertyTypes'       => PropertiesController::getAllPropertyTypes(),
+				'propertyPurposes'    => PropertiesController::getPropertiesPurpose(),
+				'priceRanges'         => PropertiesController::getPriceRange()
+			));
+	}
 
-        for($i=1; $i < sizeof($data)- 1; $i++) {
-            if ($data[$i]['user_type'] != 'REALTOR') {
-                unset($data[$i]);
-            }
-        }
+	function getClients() {
+		$client = new ClientHttp('');
+		$data   = $client->get('user/all-users');
 
-        return array_slice($data, 0, 4);
-    }
+		for ($i = 1; $i < sizeof($data)-1; $i++) {
+			if ($data[$i]['user_type'] != 'REALTOR') {
+				unset($data[$i]);
+			}
+		}
 
-    function getContactInfo() {
-        $client = new ClientHttp('');
-        $data = $client->get('user/all-users');
+		return array_slice($data, 0, 4);
+	}
 
-        for($i=1; $i < sizeof($data)- 1; $i++) {
-            if ($data[$i]['user_type'] != 'REALTOR' && $data[$i]['has_profile']) {
-                unset($data[$i]);
-            }
-        }
+	function getContactInfo() {
+		$client = new ClientHttp('');
+		$data   = $client->get('user/all-users');
 
-        return $data[0];
-    }
+		for ($i = 1; $i < sizeof($data)-1; $i++) {
+			if ($data[$i]['user_type'] != 'REALTOR' && $data[$i]['has_profile']) {
+				unset($data[$i]);
+			}
+		}
+
+		return $data[0];
+	}
 }

@@ -17,16 +17,16 @@
 </div>
 
 @push('scripts')
-    <!-- Properties list -->
-    <script src="js/properties.js"></script>
-
+    <script>
+        const properties = @json($mapProperties);
+    </script>
 
     <script type="text/javascript">
         (function($){
             "use strict";
 
             $(document).ready(function(){
-                //Create porperties map
+                //Create properties map
                 Cozy.propertiesMap(properties, 'properties_map');
             });
         })(jQuery);

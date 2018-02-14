@@ -4,36 +4,37 @@
 
     <!-- BEGIN MAP PROPERTY FILTER -->
     <div id="map-property-filter">
-
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
                     <i id="filter-close" class="fa fa-minus"></i>
-                    <form>
+                    <form action="{{ route('properties-list') }}">
                         <div class="form-group">
                             <div class="form-control-large">
-                                <input type="text" class="form-control" name="location" placeholder="City, State, Country, etc...">
+                                <input type="text" class="form-control" name="location" placeholder="Ciudad, Departamento, País...">
                             </div>
 
                             <div class="form-control-large">
-                                <select id="search_prop_type" name="search_prop_type" data-placeholder="Type of Property">
+                                <select id="search_prop_type" name="search_prop_type" data-placeholder="Tipo de inmueble">
                                     <option value=""> </option>
-                                    <option value="residential">Residential</option>
-                                    <option value="commercial">Commercial</option>
-                                    <option value="land">Land</option>
+                                    @foreach($propertyTypes as $types)
+                                        <option value=""> </option>
+                                        <option value="{{ $types['id_property_type'] }}">{{ $types['nombre'] }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div class="form-control-small">
-                                <select id="search_status" name="search_status" data-placeholder="Status">
+                                <select id="search_status" name="search_status" data-placeholder="Estatus">
                                     <option value=""> </option>
-                                    <option value="sale">For Sale</option>
-                                    <option value="rent">For Rent</option>
+                                    @foreach($propertyPurposes as $purpose)
+                                        <option value="{{ $purpose }}">{{ $purpose }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div class="form-control-small">
-                                <select id="search_bedrooms" name="search_bedrooms" data-placeholder="Bedrooms">
+                                <select id="search_bedrooms" name="search_bedrooms" data-placeholder="Habitaciones">
                                     <option value=""> </option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
@@ -46,7 +47,7 @@
                             </div>
 
                             <div class="form-control-small">
-                                <select id="search_bathrooms" name="search_bathrooms" data-placeholder="Bathrooms">
+                                <select id="search_bathrooms" name="search_bathrooms" data-placeholder="Baños">
                                     <option value=""> </option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
@@ -58,40 +59,22 @@
                             </div>
 
                             <div class="form-control-small">
-                                <select id="search_minprice" name="search_minprice" data-placeholder="Min. Price">
+                                <select id="search_minprice" name="search_minprice" data-placeholder="Precio mín.">
                                     <option value=""> </option>
-                                    <option value="0">$0</option>
-                                    <option value="25000">$25000</option>
-                                    <option value="50000">$50000</option>
-                                    <option value="75000">$75000</option>
-                                    <option value="100000">$100000</option>
-                                    <option value="150000">$150000</option>
-                                    <option value="200000">$200000</option>
-                                    <option value="300000">$300000</option>
-                                    <option value="500000">$500000</option>
-                                    <option value="750000">$750000</option>
-                                    <option value="1000000">$1000000</option>
+                                    <option value="{{ $priceRanges['min_sale_price'] }}">{{ number_format($priceRanges['min_sale_price']) }}</option>
+                                    <option value="{{ $priceRanges['min_rent_price'] }}">{{ number_format($priceRanges['min_rent_price']) }}</option>
                                 </select>
                             </div>
 
                             <div class="form-control-small">
-                                <select id="search_maxprice" name="search_maxprice" data-placeholder="Max. Price">
+                                <select id="search_maxprice" name="search_maxprice" data-placeholder="Precio máx.">
                                     <option value=""> </option>
-                                    <option value="25000">$25000</option>
-                                    <option value="50000">$50000</option>
-                                    <option value="75000">$75000</option>
-                                    <option value="100000">$100000</option>
-                                    <option value="150000">$150000</option>
-                                    <option value="200000">$200000</option>
-                                    <option value="300000">$300000</option>
-                                    <option value="500000">$500000</option>
-                                    <option value="750000">$750000</option>
-                                    <option value="1000000">$1000000</option>
-                                    <option value="1000000plus">>$1000000</option>
+                                    <option value="{{ $priceRanges['max_rent_price'] }}">{{ number_format($priceRanges['max_rent_price']) }}</option>
+                                    <option value="{{ $priceRanges['max_sale_price'] }}">{{ number_format($priceRanges['max_sale_price']) }}</option>
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-fullcolor">Search</button>
+                            <button type="submit" class="btn btn-fullcolor">Buscar</button>
                         </div>
                     </form>
 

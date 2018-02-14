@@ -59,6 +59,26 @@ class PropertiesController extends Controller {
 		return array('properties' => $properties, 'total_prop' => $data['total']);
 	}
 
+	public static function formatForMap($properties) {
+		$formattedProperties = [];
+
+		foreach ($properties as $key => $property) {
+			$formattedProperties[$key] = array(
+				'id'              => $property['id_property'],
+				'title'           => $property['title'],
+				'latitude'        => $property['latitude'],
+				'longitude'       => $property['longitude'],
+				'image'           => $property['galleries'][0][0]['url'],
+				'description'     => $property['address'].'<br>'.$property['region_label'].', '.$property['city_label'].', '.$property['country_label'],
+				'link'            => 'propiedades/propiedad/'.$property['id_property'],
+				'map_marker_icon' => 'images/markers/coral-marker-residential.png',
+
+			);
+		}
+
+		return $formattedProperties;
+	}
+
 	static function getUnitAreaLabel($label) {
 		$unit = '';
 

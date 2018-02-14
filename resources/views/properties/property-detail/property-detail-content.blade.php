@@ -19,7 +19,9 @@
                 <div class="main col-sm-8">
                     @include('properties.property-detail.property-gallery')
                     @include('properties.property-detail.property-features')
-                    @include('properties.property-detail.property-location')
+                    @if($property['latitude'] != '' && $property['longitude'] != '')
+                        @include('properties.property-detail.property-location')
+                    @endif
                     @include('properties.property-detail.agent-contact')
                     @include('properties.property-detail.similar-properties')
                 </div>
@@ -34,13 +36,18 @@
 <!-- END CONTENT WRAPPER -->
 @push('scripts')
     <script>
-        const coordinates = { lat: parseFloat(@json($property).latitude), lng: parseFloat(@json($property).longitude) };
-        console.log(coordinates);
+        const validCoordinates = parseFloat(@json($property).latitude) !== NaN && parseFloat(@json($property).longitude) !== NaN;
+        const coordinates = {
+            lat: parseFloat(@json($property).latitude),
+            lng: parseFloat(@json($property).longitude)
+        };
         const mapData = {
             coordinates: coordinates,
+            valid: validCoordinates,
             location: `{{ $property['city_label'] }}, {{ $property['region_label'] }}, {{ $property['country_label'] }}`,
             picture: "{{ $property['galleries'][0][0]['url'] }}",
-            propertyType: "{{ $property['property_type_label'] }}"
+            propertyType: "{{ $property['property_type_label'] }}",
+            icon: "{{ asset('images/markers/coral-marker-residential.png') }}"
         }
         const realtor = @json($realtor);
     </script>
