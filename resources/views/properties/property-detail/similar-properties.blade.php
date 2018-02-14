@@ -1,9 +1,9 @@
 <!-- BEGIN SIMILAR PROPERTIES -->
-<h1 class="section-title">Propiedades similares</h1>
-<div id="similar-properties" class="grid-style1 clearfix">
-    <div class="row">
-        @foreach($similarProperties as $sproperty)
-            @if($sproperty['id_property'] != $property['id_property'])
+@if(sizeof($similarProperties) > 1)
+    <h1 class="section-title">Propiedades similares</h1>
+    <div id="similar-properties" class="grid-style1 clearfix">
+        <div class="row">
+            @foreach($similarProperties as $sproperty)
                 <div class="item col-md-4">
                     <div class="image">
                         <a href="{{ route('property-detail', $sproperty['id_property']) }}">
@@ -31,15 +31,14 @@
                         <li><i class="icon-bathrooms"></i> {{ $sproperty['bathrooms'] ? $sproperty['bathrooms'] : 'N/A' }}</li>
                     </ul>
                 </div>
-            @endif
-        @endforeach
+            @endforeach
+        </div>
     </div>
-</div>
-
-<p class="center">
-    <a href="{{ route('properties-list', array('id_region' => $property['id_region'], 'id_property_type' => $property['id_property_type'])) }}" 
-       class="btn btn-default-color" data-grid-id="similar-properties" data-load-amount="3">
-       Cargar más propiedades
-    </a>
-</p>
+    <p class="center">
+        <a href="{{ route('properties-list', array('id_region' => $property['id_region'], 'id_property_type' => $property['id_property_type'])) }}"
+           class="btn btn-default-color" data-grid-id="similar-properties" data-load-amount="3">
+           Cargar más propiedades
+        </a>
+    </p>
+@endif
 <!-- END PROPERTIES ASSIGNED -->

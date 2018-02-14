@@ -183,15 +183,11 @@ $sendContactRequest.on('click', () => {
             data: params,
             dataType: 'json',
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"').attr('content') },
-            success: (data) => {
-                if (data) {
-                    console.log(data);
+            success: () => {
                     swal('¡Mensaje enviado!', 'Su mensaje será respondido pronto.', 'success');
-                }
             },
             error: (error) => {
                 swal('¡Error!', 'Su mensaje no pudo ser enviado. Por favor, inténtelo más tarde.', 'error');
-                console.log(error);
             }
         });
     }

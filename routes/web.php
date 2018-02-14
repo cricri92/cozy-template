@@ -28,3 +28,13 @@ Route::post('cliente/contacto',
 		'as'   => 'send-contact-form',
 		'uses' => 'CustomerController@contactRealtor'
 	]);
+Route::get('nuestra-empresa',
+	[
+		'as'   => 'about-us',
+		'uses' => 'AgencyController@aboutUs'
+	]);
+Route::get('contacto',
+	[
+		'as'   => 'contact-us',
+		'uses' => 'AgencyController@contactUs'
+	]);

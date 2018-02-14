@@ -2,7 +2,7 @@
 
 <div class="property-topinfo">
 <ul class="amenities">
-    {{--<li><i class="icon-apartment"></i> {{ $property['property_type_label'] }}</li>--}}
+    <li><i class="icon-apartment"></i> {{ $property['property_type_label'] }}</li>
     <li><i class="icon-area"></i> {{ $property['area'] && $property['area'] != 0 ? $property['area'] : 'N/A' }} {{ $property['unit_area_label'] }}</li>
     <li><i class="icon-bedrooms"></i> {{ $property['bedrooms'] ? $property['bedrooms'] : 'N/A' }}</li>
     <li><i class="icon-bathrooms"></i> {{ $property['bathrooms'] ? $property['bathrooms'] : 'N/A' }}</li>

@@ -8,7 +8,7 @@
             @endslot
             <li><a href="index.html">Inicio</a></li>
             <li><a href="#">Propiedades</a></li>
-            <li><a href="{{ route('properties-list') }}">Listado de Inmuebles</a></li>
+            <li><a href="{{ route('properties-list', array('id_property_type' => $property['id_property_type'])) }}">Listado de {{ $property['property_type_label'] }}</a></li>
             <li><a href="{{ route('property-detail', $property['id_property']) }}">Detalle del Inmueble #{{ $property['id_property'] }}</a></li>
         </ul>
     @endcomponent
@@ -19,7 +19,7 @@
                 <div class="main col-sm-8">
                     @include('properties.property-detail.property-gallery')
                     @include('properties.property-detail.property-features')
-                    {{-- @include('properties.property-detail.property-location') --}}
+                    @include('properties.property-detail.property-location')
                     @include('properties.property-detail.agent-contact')
                     @include('properties.property-detail.similar-properties')
                 </div>
@@ -34,12 +34,13 @@
 <!-- END CONTENT WRAPPER -->
 @push('scripts')
     <script>
-        const coordinates = { lat: @json($property).latitude, lng: @json($property).longitude };
+        const coordinates = { lat: parseFloat(@json($property).latitude), lng: parseFloat(@json($property).longitude) };
+        console.log(coordinates);
         const mapData = {
             coordinates: coordinates,
             location: `{{ $property['city_label'] }}, {{ $property['region_label'] }}, {{ $property['country_label'] }}`,
             picture: "{{ $property['galleries'][0][0]['url'] }}",
-            {{--propertyType: "{{ $property['property_type_label'] }}"--}}
+            propertyType: "{{ $property['property_type_label'] }}"
         }
         const realtor = @json($realtor);
     </script>

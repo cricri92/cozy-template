@@ -522,6 +522,7 @@ var Cozy;
                 }
             },
 
+            /*
             agencyMap: function (markers, agency_map_canvas, agency_id) {
 
                 if (agency_map_canvas === undefined || markers.length === 0) {
@@ -659,7 +660,7 @@ var Cozy;
                         map.setZoom($tis.agency_selectedZoom);
                     });
                 }
-            },
+            },*/
 
             propertiesMap: function (markers, properties_map_canvas, property_id) {
 
@@ -796,7 +797,7 @@ var Cozy;
                 properties.markerClusterer = new MarkerClusterer(properties.map, properties.markers, mcOptions);
             },
 
-            contactsMap: function (markers, map_canvas, map_zoom) {
+            /*contactsMap: function (markers, map_canvas, map_zoom) {
 
                 var $tis = this,
                     styles = [],
@@ -905,7 +906,7 @@ var Cozy;
                         createMarker(markers[i]);
                     }
                 }
-            },
+            },*/
 
             windowResize: function () {
 

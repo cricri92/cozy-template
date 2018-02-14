@@ -41,7 +41,7 @@
                 </div>
                 <div class="info">
                     <h3>
-                        <a href="properties-detail.html">{{ $prop['title'] }}</a>
+                        <a href="{{ route('property-detail', $prop['id_property']) }}">{{ $prop['title'] }}</a>
                         <small>{{ $prop['address'] }}</small>
                     </h3>
                     <div class="col-md-12">

@@ -84,8 +84,8 @@
                             </li>
 
                             <!--<li><a href="blog-listing1.html">Blog</a></li>-->
-                            <li><a href="about.html">Nuestra empresa</a></li>
-                            <li><a href="contacts.html">Contacto</a></li>
+                            <li><a href="{{ route('about-us') }}">Nuestra empresa</a></li>
+                            <li><a href="{{ route('contact-us') }}">Contacto</a></li>
                         </ul>
 
                     </nav>

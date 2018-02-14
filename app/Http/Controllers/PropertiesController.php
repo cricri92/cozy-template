@@ -167,18 +167,17 @@ class PropertiesController extends Controller {
 	}
 
 	public function getPropertyTypeLabel($idPropertyType) {
-		$data = self::getAllPropertyTypes();
+		$data  = self::getAllPropertyTypes();
+		$index = array_search($idPropertyType, array_column($data, 'id_property_type'));
 
-		return array_filter($data, function ($val) use ($idPropertyType) {
-				return $val['id_property_type'] == $idPropertyType;
-			});
+		return $data[$index]['nombre'];
 	}
 
 	public function getProperty($idProperty) {
 		$client   = new ClientHttp('');
 		$property = $client->get('property/get/'.$idProperty);
 
-		//$property['property_type_label']   = $this->getPropertyTypeLabel($property['id_property_type']);
+		$property['property_type_label']   = $this->getPropertyTypeLabel($property['id_property_type']);
 		$property['unit_area_label']       = self::getUnitAreaLabel($property['id_unit_area']);
 		$property['unit_built_area_label'] = self::getUnitAreaLabel($property['id_unit_built_area']);
 
@@ -187,7 +186,6 @@ class PropertiesController extends Controller {
 				'id_property_type' => $property['id_property_type'],
 				'id_region'        => $property['id_region'],
 			))['properties'];
-		//dd($user);
 
 		return view('properties.property-detail.property-detail-content',
 			array(
