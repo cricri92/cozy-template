@@ -29,14 +29,14 @@
         <link href="http://fonts.googleapis.com/css?family=Raleway:300,500,900%7COpen+Sans:400,700,400italic" rel="stylesheet" type="text/css" />
 
         <!-- Bootstrap CSS -->
-        <link href="{{ secure_asset('css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
 
         <!-- Template CSS -->
-        <link href="{{ secure_asset('css/style.css') }}" rel="stylesheet" />
-        <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet" />
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 
         <!-- Modernizr -->
-        <script src="{{ secure_asset('js/modernizr-2.8.1.min.js') }}"></script>
+        <script src="{{ asset('js/modernizr-2.8.1.min.js') }}"></script>
 
          <script>
             // rename myToken as you like
