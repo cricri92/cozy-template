@@ -11,7 +11,7 @@
                                 <h3>{{ $sproperty['title'] }}</h3>
                                 <span class="location">{{ $sproperty['city_label'] }}, {{ $sproperty['region_label'] }}, {{ $sproperty['country_label'] }}</span>
                             </a>
-                            <img src="{{ $sproperty['galleries'][0][0]['url'] }}" alt="" />
+                            <img src="{{ $sproperty['image'] }}" alt="" />
                         </div>
                         <div class="price">
                             <i class="fa fa-home"></i>

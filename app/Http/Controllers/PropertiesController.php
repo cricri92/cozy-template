@@ -27,7 +27,7 @@ class PropertiesController extends Controller {
 	}
 
 	static function getQtyOfPages($count, $regQty = 5) {
-		return $count%$regQty == 0?$count/$regQty:floor($count/$regQty)+1;
+		return $count % $regQty == 0 ? $count / $regQty : floor($count / $regQty) + 1;
 	}
 
 	public static function getLatestProperties($qty = 5, $page = 1, $criteria = null) {
@@ -37,7 +37,7 @@ class PropertiesController extends Controller {
 			'id_availability' => 1,
 			'take'            => $qty,
 			'scope'           => 1,
-			'skip'            => ($page-1)*$qty
+			'skip'            => ($page - 1) * $qty
 		);
 
 		if ($criteria != null) {
@@ -51,6 +51,8 @@ class PropertiesController extends Controller {
 
 				$data[$i]['unit_area_label']       = self::getUnitAreaLabel($data[$i]['id_unit_area']);
 				$data[$i]['unit_built_area_label'] = self::getUnitAreaLabel($data[$i]['id_unit_built_area']);
+                $data[$i]['image'] = isset($data[$i]['galleries']) && sizeof($data[$i]['galleries']) > 0 ? $data[$i]['galleries'][0][0]['url'] : '';
+                $data[$i]['image_description'] = isset($data['galleries']) && sizeof($data['galleries']) > 0 ? $data[$i]['galleries'][0][0]['description'] : '';
 
 				$properties[$i] = $data[$i];
 			}
@@ -68,7 +70,7 @@ class PropertiesController extends Controller {
 				'title'           => $property['title'],
 				'latitude'        => $property['latitude'],
 				'longitude'       => $property['longitude'],
-				'image'           => isset($property['galleries']) && sizeof($property['galleries']) ? $property['galleries'][0][0]['url'] : '',
+				'image'           => $property['image'],
 				'description'     => $property['address'].'<br>'.$property['region_label'].', '.$property['city_label'].', '.$property['country_label'],
 				'link'            => 'propiedades/propiedad/'.$property['id_property'],
 				'map_marker_icon' => 'images/markers/coral-marker-residential.png',

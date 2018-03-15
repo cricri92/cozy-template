@@ -6,8 +6,8 @@
         <div class="item">
             <div class="image">
                 <a href="{{ route('property-detail', $prop['id_property']) }}">
-                    <img src="{{ $prop['galleries'][0][0]['url'] }}"
-                         alt="{{ $prop['galleries'][0][0]['description'] }}" />
+                    <img src="{{ $prop['image'] }}"
+                         alt="{{ $prop['image_description'] }}" />
                 </a>
             </div>
             <div class="price">

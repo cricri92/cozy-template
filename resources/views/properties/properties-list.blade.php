@@ -24,8 +24,8 @@
                     <a href="{{ route('property-detail', $prop['id_property']) }}">
                         <span class="btn btn-default"><i class="fa fa-file-o"></i> Detalles</span>
                     </a>
-                    <img src="{{ $prop['galleries'][0][0]['url'] }}"
-                            alt="{{ $prop['galleries'][0][0]['description'] }}" />
+                    <img src="{{ $prop['image'] }}"
+                            alt="{{ $prop['image_description'] }}" />
                 </div>
                 <div class="price">
                     @if($prop['for_sale'])

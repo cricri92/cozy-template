@@ -20,9 +20,9 @@
                     @foreach($latestThreeProperties as $property)
                         <li>
                             <div class="image">
-                                <a href="properties-detail.html"><img src="{{ $property['galleries'][0][0]['url'] }}" alt="" /></a>
+                                <a href="{{ route('property-detail', $property['id_property']) }}"><img src="{{ $property['image'] }}" alt="" /></a>
                             </div>
-                            <p><a href="properties-detail.html">{{ $property['title'] }}<span>+</span></a></p>
+                            <p><a href="{{ route('property-detail', $property['id_property']) }}">{{ $property['title'] }}<span>+</span></a></p>
                         </li>
                     @endforeach
                 </ul>

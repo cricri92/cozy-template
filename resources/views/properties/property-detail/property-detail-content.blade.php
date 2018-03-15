@@ -45,7 +45,7 @@
             coordinates: coordinates,
             valid: validCoordinates,
             location: `{{ $property['city_label'] }}, {{ $property['region_label'] }}, {{ $property['country_label'] }}`,
-            picture: "{{ $property['galleries'][0][0]['url'] }}",
+            picture: "{{ $property['image'] }}",
             propertyType: "{{ $property['property_type_label'] }}",
             icon: "{{ asset('images/markers/coral-marker-residential.png') }}"
         }

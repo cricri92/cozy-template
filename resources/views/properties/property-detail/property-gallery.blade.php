@@ -29,25 +29,29 @@
 
     <!-- BEGIN PROPERTY DETAIL LARGE IMAGE SLIDER -->
     <div id="property-detail-large" class="owl-carousel">
-        @foreach ($property['galleries'][0] as $photo)
-            @if(!$loop->first)
-                <div class="item">
-                    <img src="{{ $photo['url'] }}" alt="" />
-                </div>
-            @endif
-        @endforeach
+        @if (isset($property['galleries']) && sizeof($property['galleries']) > 0))
+            @foreach ($property['galleries'][0] as $photo)
+                @if(!$loop->first)
+                    <div class="item">
+                        <img src="{{ $photo['url'] }}" alt="" />
+                    </div>
+                @endif
+            @endforeach
+        @endif
     </div>
     <!-- END PROPERTY DETAIL LARGE IMAGE SLIDER -->
 
     <!-- BEGIN PROPERTY DETAIL THUMBNAILS SLIDER -->
     <div id="property-detail-thumbs" class="owl-carousel">
-        @foreach ($property['galleries'][0] as $photo)
-            @if(!$loop->first)
-                <div class="item">
-                    <img src="{{ $photo['url'] }}" alt="" />
-                </div>
-            @endif
-        @endforeach
+        @if (isset($property['galleries']) && sizeof($property['galleries']) > 0))
+            @foreach ($property['galleries'][0] as $photo)
+                @if(!$loop->first)
+                    <div class="item">
+                        <img src="{{ $photo['url'] }}" alt="" />
+                    </div>
+                @endif
+            @endforeach
+        @endif
     </div>
     <!-- END PROPERTY DETAIL THUMBNAILS SLIDER -->
 </div>
