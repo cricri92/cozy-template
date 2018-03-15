@@ -52,7 +52,7 @@ class PropertiesController extends Controller {
 				$data[$i]['unit_area_label']       = self::getUnitAreaLabel($data[$i]['id_unit_area']);
 				$data[$i]['unit_built_area_label'] = self::getUnitAreaLabel($data[$i]['id_unit_built_area']);
                 $data[$i]['image'] = isset($data[$i]['galleries']) && sizeof($data[$i]['galleries']) > 0 ? $data[$i]['galleries'][0][0]['url'] : '';
-                $data[$i]['image_description'] = isset($data['galleries']) && sizeof($data['galleries']) > 0 ? $data[$i]['galleries'][0][0]['description'] : '';
+                $data[$i]['image_description'] = isset($data[$i]['galleries']) && sizeof($data[$i]['galleries']) > 0 ? $data[$i]['galleries'][0][0]['description'] : '';
 
 				$properties[$i] = $data[$i];
 			}
@@ -202,8 +202,10 @@ class PropertiesController extends Controller {
 		$property['property_type_label']   = $this->getPropertyTypeLabel($property['id_property_type']);
 		$property['unit_area_label']       = self::getUnitAreaLabel($property['id_unit_area']);
 		$property['unit_built_area_label'] = self::getUnitAreaLabel($property['id_unit_built_area']);
+        $property['image'] = isset($property['galleries']) && sizeof($property['galleries']) > 0 ? $property['galleries'][0][0]['url'] : '';
+        $property['image_description'] = isset($property['galleries']) && sizeof($property['galleries']) > 0 ? $property['galleries'][0][0]['description'] : '';
 
-		$user              = $client->get('user/get/'.$property['id_user']);
+        $user              = $client->get('user/get/'.$property['id_user']);
 		$similarProperties = self::getLatestProperties(6, 1, array(
 				'id_property_type' => $property['id_property_type'],
 				'id_region'        => $property['id_region'],
