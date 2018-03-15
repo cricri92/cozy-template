@@ -68,7 +68,7 @@ class PropertiesController extends Controller {
 				'title'           => $property['title'],
 				'latitude'        => $property['latitude'],
 				'longitude'       => $property['longitude'],
-				'image'           => $property['galleries'][0][0]['url'],
+				'image'           => isset($property['galleries']) && sizeof($property['galleries']) ? $property['galleries'][0][0]['url'] : '',
 				'description'     => $property['address'].'<br>'.$property['region_label'].', '.$property['city_label'].', '.$property['country_label'],
 				'link'            => 'propiedades/propiedad/'.$property['id_property'],
 				'map_marker_icon' => 'images/markers/coral-marker-residential.png',

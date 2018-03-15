@@ -6,10 +6,16 @@ use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 
 class HttpRequestsProvider extends ServiceProvider {
-	private $apiUrl  = 'https://api.wasi.co/v1/';
-	private $headers = array('wasi_token' => 'p5c8_VKyG_1tlo_8RMl', 'id_company' => 248498);
+	private $apiUrl;
+	private $headers;
 
-	private function validateOptions($options) {
+    function __construct()
+    {
+        $this->apiUrl = env('API_URL');
+        $this->headers = array('wasi_token' => env('WASI_TOKEN'), 'id_company' => env('ID_COMPANY'));
+    }
+
+    private function validateOptions($options) {
 		$opts = $this->headers;
 
 		if ($options != null) {
@@ -21,7 +27,7 @@ class HttpRequestsProvider extends ServiceProvider {
 
 	public function validateRecaptcha($key) {
 		$client   = new Client();
-		$response = $client->post('https://www.google.com/recaptcha/api/siteverify',
+		$response = $client->post(env('GOOGLE_RECAPTCHA_VERIFY_URL'),
 			['form_params' => [
 					'secret'     => env('GOOGLE_RECAPTCHA_SECRET'),
 					'response'   => $key
