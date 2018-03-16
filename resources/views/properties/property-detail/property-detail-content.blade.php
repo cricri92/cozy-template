@@ -36,14 +36,12 @@
 <!-- END CONTENT WRAPPER -->
 @push('scripts')
     <script>
-        const validCoordinates = parseFloat(@json($property).latitude) !== NaN && parseFloat(@json($property).longitude) !== NaN;
         const coordinates = {
-            lat: parseFloat(@json($property).latitude),
-            lng: parseFloat(@json($property).longitude)
+            lat: @json($property).latitude,
+            lng: @json($property).longitude
         };
         const mapData = {
             coordinates: coordinates,
-            valid: validCoordinates,
             location: `{{ $property['city_label'] }}, {{ $property['region_label'] }}, {{ $property['country_label'] }}`,
             picture: "{{ $property['image'] }}",
             propertyType: "{{ $property['property_type_label'] }}",

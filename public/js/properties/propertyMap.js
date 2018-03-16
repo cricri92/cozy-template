@@ -1,19 +1,17 @@
 'use strict';
 
 function initPropertyMap() {
-	if (mapData.valid) {
-		const $mapPropertyElement = document.getElementById('property_location');
-		const map = new google.maps.Map($mapPropertyElement, {
-			zoom: 14	,
-			center: mapData.coordinates
-		});
+	const $mapPropertyElement = document.getElementById('property_location');
+	const map = new google.maps.Map($mapPropertyElement, {
+		zoom: 14	,
+		center: mapData.coordinates
+	});
 
-		const marker = new google.maps.Marker({
-			position: mapData.coordinates,
-			map: map,
-			icon: mapData.icon
-		});		
-	}
+	const marker = new google.maps.Marker({
+		position: mapData.coordinates,
+		map: map,
+		icon: mapData.icon
+	});
 }
 
 $(document).on('ready', () => {

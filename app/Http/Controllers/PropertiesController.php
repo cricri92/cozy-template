@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Providers\HttpRequestsProvider as ClientHttp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PropertiesController extends Controller {
 	public function getProperties(Request $request) {
@@ -48,7 +49,8 @@ class PropertiesController extends Controller {
 		$properties = [];
 		for ($i = 0; $i < sizeof($data)-2; $i++) {
 			if (gettype($data[$i]) == 'array') {
-
+                $data[$i]['latitude'] = (float)$data[$i]['latitude'];
+                $data[$i]['longitude'] = (float)$data[$i]['longitude'];
 				$data[$i]['unit_area_label']       = self::getUnitAreaLabel($data[$i]['id_unit_area']);
 				$data[$i]['unit_built_area_label'] = self::getUnitAreaLabel($data[$i]['id_unit_built_area']);
                 $data[$i]['image'] = isset($data[$i]['galleries']) && sizeof($data[$i]['galleries']) > 0 ? $data[$i]['galleries'][0][0]['url'] : '';
@@ -202,6 +204,8 @@ class PropertiesController extends Controller {
 		$property['property_type_label']   = $this->getPropertyTypeLabel($property['id_property_type']);
 		$property['unit_area_label']       = self::getUnitAreaLabel($property['id_unit_area']);
 		$property['unit_built_area_label'] = self::getUnitAreaLabel($property['id_unit_built_area']);
+        $property['latitude'] = (float)$property['latitude'];
+        $property['longitude'] = (float)$property['longitude'];
         $property['image'] = isset($property['galleries']) && sizeof($property['galleries']) > 0 ? $property['galleries'][0][0]['url'] : '';
         $property['image_description'] = isset($property['galleries']) && sizeof($property['galleries']) > 0 ? $property['galleries'][0][0]['description'] : '';
 
